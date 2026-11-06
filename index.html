@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only">
+<title>Rostrox Anti-Phishing for Gmail™ · Rostrox Anti-Phishing</title>
+<meta name="description" content="Rostrox Anti-Phishing for Gmail™ — Відкрийте лист — і в бічній панелі Gmail з’явиться вердикт: небезпечно, підозріло чи ознак фішингу не знайдено. З поясненням чому.">
+<link rel="icon" href="icon-32.png"><link rel="apple-touch-icon" href="icon-128.png">
+<link rel="alternate" hreflang="en" href="en/index.html">
+<style>
+:root{color-scheme:light only;--bg:#fff;--surface:#f8fafd;--card:#fff;--text:#1f1f1f;--muted:#5e5e5e;--line:#e3e3e3;
+--primary:#0b57d0;--on-primary:#fff;--tonal:#d3e3fd;--on-tonal:#041e49;--danger:#b3261e;--warn:#b45309;--ok:#146c2e;
+--radius:16px;--shadow:0 1px 2px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--primary)}img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* Верхня панель */
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;font-size:18px;white-space:nowrap}
+.logo img{width:32px;height:32px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;font-size:15px;white-space:nowrap}
+.nav a:hover{background:var(--surface);color:var(--text)}.nav a[aria-current]{color:var(--primary);background:var(--tonal)}
+.lang{border:1px solid var(--line);border-radius:999px;padding:6px 12px;text-decoration:none;color:var(--text);font-size:14px;font-weight:600;white-space:nowrap}
+.lang:hover{background:var(--surface)}
+@media (max-width:760px){.bar .wrap{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px}
+.nav{order:3;width:100%;margin-left:0}.lang{margin-left:auto}.logo span{font-size:16px}}
+/* Кнопки */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px;border:0;cursor:pointer}
+.btn-primary{background:var(--primary);color:var(--on-primary)}.btn-primary:hover{filter:brightness(1.08)}
+.btn-tonal{background:var(--tonal);color:var(--on-tonal)}.btn-tonal:hover{filter:brightness(.97)}
+/* Головна */
+.hero{padding:64px 0 56px;background:linear-gradient(180deg,var(--surface),var(--bg))}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{display:inline-block;background:var(--tonal);color:var(--on-tonal);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600}
+h1{font-size:44px;line-height:1.12;letter-spacing:-.02em;margin:16px 0}
+.lead{font-size:19px;color:var(--muted);margin:0 0 28px;max-width:560px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.note{margin-top:16px;color:var(--muted);font-size:14px}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}h1{font-size:34px}.hero{padding:40px 0}}
+/* Макет панелі */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:16px;max-width:380px;justify-self:center;width:100%}
+.panel .verdict{background:var(--danger);color:#fff;border-radius:999px;padding:10px;text-align:center;font-weight:700}
+.panel .row{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);font-size:14px;line-height:1.45}
+.panel .row:last-child{border-bottom:0}.panel .h{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:14px 4px 2px}
+.dot{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:700;margin-top:1px}
+.dot.r{background:var(--danger)}.dot.o{background:var(--warn)}.dot.g{background:var(--ok)}
+.t-r{color:var(--danger)}.t-o{color:var(--warn)}
+/* Секції */
+section.s{padding:64px 0}section.alt{background:var(--surface)}
+h2{font-size:32px;letter-spacing:-.01em;line-height:1.2;margin:0 0 12px}
+.sub{color:var(--muted);font-size:17px;margin:0 0 32px;max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.card h3{margin:12px 0 6px;font-size:18px}.card p{margin:0;color:var(--muted);font-size:15px}
+.ic{width:44px;height:44px;border-radius:12px;background:var(--tonal);color:var(--on-tonal);display:grid;place-items:center}
+.ic svg{width:24px;height:24px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;list-style:none;padding:0;margin:0}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--primary);color:var(--on-primary);font-weight:700;margin-bottom:10px}
+.steps b{display:block;font-size:17px;margin-bottom:4px}.steps span{color:var(--muted);font-size:15px}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.checks li{display:flex;gap:12px;align-items:flex-start}.checks li::before{content:"✓";flex:none;width:24px;height:24px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:14px;font-weight:700}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-bottom:10px}
+summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";font-size:22px;line-height:1;color:var(--muted)}
+details[open] summary::after{content:"−"}details p,details ol,details ul{margin:0 0 16px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}@media (max-width:860px){.two{grid-template-columns:1fr}}
+/* Документи */
+.doc{max-width:760px;margin:0 auto;padding:40px 20px 72px}
+.doc h1{font-size:36px}.meta{color:var(--muted);font-size:14px;margin:-4px 0 24px}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin-bottom:28px}
+.doc .summary h2{font-size:17px;margin:0 0 8px}.summary ul{margin:0;padding-left:20px}
+.toc{border-left:3px solid var(--tonal);padding:4px 0 4px 16px;margin-bottom:32px}
+.toc b{display:block;margin-bottom:6px}.toc ol{margin:0;padding-left:20px}.toc a{text-decoration:none}
+.doc h2{font-size:22px;margin:36px 0 10px;scroll-margin-top:84px}.doc p,.doc li{color:var(--text)}
+.doc code{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:14px;word-break:break-all}
+.top-link{display:inline-block;margin-top:32px;font-size:14px}
+/* Підвал */
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 20px}footer a{color:var(--muted)}
+</style></head><body>
+<header class="bar"><div class="wrap">
+<a class="logo" href="index.html"><img src="icon-128.png" alt=""><span>Rostrox Anti-Phishing</span></a>
+<nav class="nav" aria-label="Menu"><a href="index.html#features">Можливості</a><a href="index.html#how">Як працює</a><a href="privacy.html">Конфіденційність</a><a href="terms.html">Умови</a><a href="support.html">Підтримка</a></nav>
+<a class="lang" href="en/index.html" title="English version" lang="en">EN</a>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap">
+ <div><span class="eyebrow">Додаток для Gmail</span><h1>Розпізнає фішинг до того, як ви натиснете</h1><p class="lead">Відкрийте лист — і в бічній панелі Gmail з’явиться вердикт: небезпечно, підозріло чи ознак фішингу не знайдено. З поясненням чому.</p>
+ <div class="actions"><a class="btn btn-primary" href="support.html#install">Встановити безкоштовно</a><a class="btn btn-tonal" href="#how">Як це працює</a></div>
+ <p class="note">Безкоштовно · без реклами · не має доступу до інтернету</p></div>
+ <div class="panel" aria-hidden="true"><div class="verdict">Небезпечний лист</div>
+ <div class="h">Чому так</div><div class="row"><span class="dot r">!</span><span class="t-r">Текст посилання показує <b>privatbank.ua</b>, а веде на <b>pr1vatbank.example</b></span></div><div class="row"><span class="dot r">!</span><span class="t-r">Вкладення — сторінка входу з полем для пароля</span></div><div class="row"><span class="dot o">!</span><span class="t-o">Лист тисне терміновістю і погрожує блокуванням</span></div>
+ <div class="h">Відправник</div><div class="row"><span class="dot g">✓</span><span>Технічна перевірка SPF/DKIM пройдена</span></div></div>
+</div></section>
+<section class="s" id="features"><div class="wrap"><h2>Що перевіряється</h2><p class="sub">Шість напрямів, на яких тримається майже кожна фішингова атака.</p><div class="grid"><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div><h3>Відправник</h3><p>Ім’я банку з чужої адреси, домени-двійники на кшталт pr1vatbank, підробка адреси (SPF, DKIM, DMARC).</p></div><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></div><h3>Посилання</h3><p>Текст показує один сайт, а веде на інший; IP-адреси, маскування через «@», скорочувачі.</p></div><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 11h16M4 16h10"/></svg></div><h3>Текст листа</h3><p>Тиск терміновістю, погрози блокуванням, запити паролів, кодів і даних картки.</p></div><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 11.5 12 19.5a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7L9.7 17.2a1.7 1.7 0 0 1-2.4-2.4L15 7"/></svg></div><h3>Вкладення</h3><p>Справжній тип файлу, подвійні розширення, макроси, форми входу, JavaScript у PDF, архіви.</p></div><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg></div><h3>Зміна реквізитів</h3><p>«У нас новий рахунок» з номером IBAN — схема, на якій бізнес втрачає найбільше.</p></div><div class="card"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></div><h3>Запрошення в календар</h3><p>Запрошення з посиланнями на сторонні сайти, які календар додає сам.</p></div></div></div></section>
+<section class="s alt" id="how"><div class="wrap"><h2>Як це працює</h2><p class="sub">Нічого налаштовувати не потрібно.</p><ol class="steps"><li><b>Встановіть</b><span>з Google Workspace Marketplace і дозвольте доступ — лише два дозволи.</span></li><li><b>Відкрийте лист</b><span>і натисніть значок щита праворуч у Gmail. Тримайте панель відкритою.</span></li><li><b>Дивіться вердикт</b><span>Кожен наступний лист перевіряється сам — червоний, помаранчевий або зелений.</span></li></ol></div></section>
+<section class="s" id="privacy"><div class="wrap two"><div><h2>Ваша пошта лишається вашою</h2><p class="sub">Застосунок створено так, щоб він фізично не міг нашкодити.</p>
+ <a href="privacy.html">Політика конфіденційності →</a></div><ul class="checks"><li>Читає лише лист, який ви відкрили, і лише поки відкрита панель</li><li>Не має доступу до інтернету — нікуди нічого не передає</li><li>Не може надсилати, змінювати чи видаляти листи</li><li>Вміст листів не зберігається; вкладення не завантажуються на ваш пристрій</li></ul></div></section>
+<section class="s alt" id="faq"><div class="wrap two"><div><h2>Часті питання</h2></div><div><details><summary>Це безкоштовно?</summary><p>Так. Застосунок безкоштовний і без реклами. Підтримати розробку можна донатом — кнопка є в самому застосунку.</p></details><details><summary>Чи бачите ви мої листи?</summary><p>Ні. Перевірка відбувається в межах вашого облікового запису Google, а застосунок не має доступу до інтернету.</p></details><details><summary>Чи замінює він антивірус?</summary><p>Ні. Він шукає відомі ознаки фішингу і допомагає вчасно зупинитися, але зелений вердикт не гарантує безпеки.</p></details><details><summary>Працює на телефоні?</summary><p>Так, у застосунку Gmail для Android та iOS — панель з’являється внизу відкритого листа.</p></details><details><summary>Мова інтерфейсу?</summary><p>Українська та англійська. Перемкнути можна на головному екрані застосунку (розділ «Налаштування»).</p></details></div></div></section>
+<section class="s"><div class="wrap" style="text-align:center"><h2>Готові спробувати?</h2><p class="sub" style="margin:0 auto 24px">Встановлення займає хвилину.</p>
+ <a class="btn btn-primary" href="support.html#install">Встановити безкоштовно</a></div></section>
+</main>
+<footer><div class="wrap"><div>© 2026 Rostrox. Усі права захищено.<br>Gmail™ — торговельна марка Google LLC.<br>Зв’язок: <a href="mailto:rostroxdev@gmail.com">rostroxdev@gmail.com</a></div>
+<nav><a href="privacy.html">Конфіденційність</a><a href="terms.html">Умови</a><a href="support.html">Підтримка</a><a href="en/index.html">English version</a></nav></div></footer>
+</body></html>
